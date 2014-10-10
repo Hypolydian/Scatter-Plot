@@ -53,12 +53,12 @@ var svg = d3.select("body").append("svg")
 
 d3.tsv("data.tsv", function(error, data) {
   data.forEach(function(d) {
-    d.Spacial_length = +d.Spacial_length;
-    d.Spacial_width = +d.Spacial_width;
+    d.Fgrav = +d.Fgrav;
+    d.accel = +d.accel;
   });
 
-  x.domain(d3.extent(data, function(d) { return d.Spacial_length; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.Spacial_width; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.Fgrav; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.accel; })).nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -87,8 +87,8 @@ d3.tsv("data.tsv", function(error, data) {
     .enter().append("circle")
       .attr("class", "dot")
       .attr("r", 3.5)
-      .attr("cx", function(d) { return x(d.Spacial_length); })
-      .attr("cy", function(d) { return y(d.Spacial_width); })
+      .attr("cx", function(d) { return x(d.Fgrav); })
+      .attr("cy", function(d) { return y(d.accel); })
       .style("fill", function(d) { return color(d.species); });
 
   var legend = svg.selectAll(".legend")
