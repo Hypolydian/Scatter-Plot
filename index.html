@@ -52,13 +52,15 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.tsv("data.tsv", function(error, data) {
+  //alert(JSON.stringify(data));
+  
   data.forEach(function(d) {
     d.Fgrav = +d.Fgrav;
-    d.accel = +d.accel;
+    d.Accel = +d.Accel;
   });
 
   x.domain(d3.extent(data, function(d) { return d.Fgrav; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.accel; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.Accel; })).nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -80,7 +82,7 @@ d3.tsv("data.tsv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .html("Accel (m/s<sup>2</sup>)")
+      .text("Accel (m/second^2)")
 
   svg.selectAll(".dot")
       .data(data)
@@ -88,8 +90,8 @@ d3.tsv("data.tsv", function(error, data) {
       .attr("class", "dot")
       .attr("r", 3.5)
       .attr("cx", function(d) { return x(d.Fgrav); })
-      .attr("cy", function(d) { return y(d.accel); })
-      .style("fill", function(d) { return color(d.species); });
+      .attr("cy", function(d) { return y(d.Accel); })
+      .style("fill", function(d) { return color(1); });
 
   var legend = svg.selectAll(".legend")
       .data(color.domain())
